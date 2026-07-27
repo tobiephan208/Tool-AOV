@@ -42,6 +42,29 @@
             flex-direction: column;
             align-items: center;
             padding: 20px 16px;
+            overflow-x: hidden;
+        }
+
+        /* ANIMATION DVD LOGO (Đã giảm opacity & bỏ đổi màu) */
+        #dvdLogo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+            cursor: pointer;
+            z-index: 99999;
+            opacity: 0.65;
+            transition: opacity 0.25s ease;
+            will-change: transform;
+        }
+
+        #dvdLogo:hover {
+            opacity: 1;
         }
 
         .site-header {
@@ -49,8 +72,8 @@
             max-width: 650px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
+            justify-content: center;
+            padding: 18px 24px;
             background: rgba(18, 19, 24, 0.85);
             border: 1px solid var(--card-border);
             border-radius: 24px;
@@ -59,33 +82,8 @@
             position: relative;
         }
 
-        .header-logo {
-            display: flex;
-            align-items: center;
-            z-index: 2;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .header-logo img {
-            height: 60px;
-            width: 60px;
-            border-radius: 16px;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-
         .header-title-container {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             text-align: center;
-            width: max-content;
         }
 
         .brand-title {
@@ -387,10 +385,6 @@
             .brand-title {
                 font-size: 1.8rem;
             }
-            .header-logo img {
-                height: 48px;
-                width: 48px;
-            }
             .site-header {
                 padding: 12px 16px;
             }
@@ -399,16 +393,13 @@
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="header-logo" onclick="openNycModal()" title="Bấm để xem thêm">
-            <img src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="VTT Tools Logo">
-        </div>
+    <!-- LOGO ĐĨA DVD NẢY QUANH MÀN HÌNH -->
+    <img id="dvdLogo" src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="DVD Logo" onclick="openNycModal()" title="Bấm để xem thêm">
 
+    <header class="site-header">
         <div class="header-title-container">
             <h1 class="brand-title">VTT Tools</h1>
         </div>
-
-        <div style="width: 60px;"></div>
     </header>
 
     <main class="main-container">
@@ -514,7 +505,49 @@
         let currentTargetPlatform = null;
         let cropper = null;
 
+        /* HOẠT HỌA LOGO CHẠY DVD (GIỮ NGUYÊN MÀU) */
+        const dvd = document.getElementById('dvdLogo');
+        let posX = Math.random() * (window.innerWidth - 60);
+        let posY = Math.random() * (window.innerHeight - 60);
+        let speedX = 2.5;
+        let speedY = 2.5;
+
+        function animateDVD() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const dvdWidth = dvd.offsetWidth;
+            const dvdHeight = dvd.offsetHeight;
+
+            posX += speedX;
+            posY += speedY;
+
+            if (posX + dvdWidth >= screenWidth) {
+                speedX = -Math.abs(speedX);
+                posX = screenWidth - dvdWidth;
+            } else if (posX <= 0) {
+                speedX = Math.abs(speedX);
+                posX = 0;
+            }
+
+            if (posY + dvdHeight >= screenHeight) {
+                speedY = -Math.abs(speedY);
+                posY = screenHeight - dvdHeight;
+            } else if (posY <= 0) {
+                speedY = Math.abs(speedY);
+                posY = 0;
+            }
+
+            dvd.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
+            requestAnimationFrame(animateDVD);
+        }
+
+        window.addEventListener('resize', () => {
+            if (posX > window.innerWidth - 60) posX = window.innerWidth - 60;
+            if (posY > window.innerHeight - 60) posY = window.innerHeight - 60;
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
+            animateDVD();
             Swal.fire({
                 title: 'Thông Báo Bản Quyền',
                 text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sỡ hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
