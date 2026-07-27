@@ -49,14 +49,14 @@
         /* HEADER & NAVBAR */
         .site-header {
             width: 100%;
-            max-width: 1100px;
+            max-width: 650px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 20px;
-            background: rgba(18, 19, 24, 0.8);
+            padding: 16px 24px;
+            background: rgba(18, 19, 24, 0.85);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
+            border-radius: 24px;
             backdrop-filter: blur(12px);
             margin-bottom: 24px;
             position: relative;
@@ -66,14 +66,21 @@
             display: flex;
             align-items: center;
             z-index: 2;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
         }
 
         .header-logo img {
-            height: 48px;
-            width: auto;
-            border-radius: 12px;
+            height: 60px; /* Phóng to logo */
+            width: 60px;
+            border-radius: 16px;
             object-fit: cover;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .header-title-container {
@@ -86,7 +93,7 @@
 
         .brand-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
+            font-size: 2.4rem; /* Phóng to tên tiêu đề */
             font-weight: 800;
             background: var(--title-gradient);
             -webkit-background-clip: text;
@@ -95,96 +102,114 @@
             text-transform: uppercase;
         }
 
-        /* CONTAINER chính chứa 2 cột iOS & Android */
+        /* MAIN CONTAINER (ĐƠN CỘT) */
         .main-container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* TAB SELECTOR CHỌN HỆ ĐIỀU HÀNH */
+        .os-selector-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 12px;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            margin-left: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .os-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            background: #090a0e;
+            padding: 6px;
+            border-radius: 16px;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        @media (max-width: 850px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-            .brand-title {
-                font-size: 1.5rem;
-            }
-            .site-header {
-                padding: 10px 14px;
-            }
-            .header-logo img {
-                height: 38px;
-            }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            padding: 12px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* PANEL CARD ĐEN BASIC */
-        .platform-card {
+        .tab-btn.active-ios {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-btn.active-android {
+            background: var(--android-color);
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        /* CARD BẢNG ĐIỀU KHIỂN CHÍNH */
+        .content-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: border-color 0.3s ease;
-        }
-
-        .platform-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .card-header i {
-            font-size: 1.6rem;
-        }
-
-        .card-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
         }
 
         /* KHUNG TO UPLOAD FILE .HAR */
         .upload-big-box {
             background: #090a0e;
             border: 2px dashed rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            padding: 28px 16px;
+            border-radius: 18px;
+            padding: 32px 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.25s ease;
-            position: relative;
         }
 
         .upload-big-box:hover {
             border-color: var(--ios-color);
-            background: rgba(56, 189, 248, 0.02);
+            background: rgba(56, 189, 248, 0.03);
         }
 
         .big-icon {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--ios-color);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .box-title {
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--text-main);
         }
 
         .box-sub {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-sub);
             margin-top: 4px;
         }
@@ -195,11 +220,11 @@
             height: 120px;
             background: #090a0e;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            padding: 14px;
+            border-radius: 18px;
+            padding: 16px;
             color: #fff;
             font-family: monospace;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             outline: none;
             resize: none;
             transition: border-color 0.25s ease;
@@ -212,21 +237,21 @@
         /* KHUNG NHỎ UPLOAD ANH LOADING */
         .upload-small-box {
             background: #090a0e;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 18px;
+            border: 2px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             position: relative;
-            min-height: 130px;
+            min-height: 150px;
             overflow: hidden;
             transition: all 0.25s ease;
         }
 
         .upload-small-box:hover {
-            border-color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .small-box-content {
@@ -247,8 +272,8 @@
         .status-tracker-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 16px;
+            padding: 16px;
             font-size: 0.85rem;
         }
 
@@ -273,18 +298,18 @@
         /* NÚT THỰC THI (ACTION BUTTON) */
         .btn-action {
             width: 100%;
-            padding: 14px;
-            border-radius: 14px;
+            padding: 16px;
+            border-radius: 16px;
             border: none;
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .btn-ios {
@@ -362,25 +387,36 @@
 
         .hidden { display: none !important; }
 
-        /* SweetAlert Black Override */
+        /* SweetAlert Custom Style */
         .swal2-popup {
             background: #121318 !important;
             color: #fff !important;
             border: 1px solid var(--card-border) !important;
-            border-radius: 20px !important;
+            border-radius: 24px !important;
         }
         .swal2-title { color: #fff !important; }
+
+        @media (max-width: 600px) {
+            .brand-title {
+                font-size: 1.8rem;
+            }
+            .header-logo img {
+                height: 48px;
+                width: 48px;
+            }
+            .site-header {
+                padding: 12px 16px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- HEADER & HEADING TRANG WEB -->
     <header class="site-header">
-        <!-- LOGO GÓC TRÁI -->
-        <div class="header-logo">
-            <a href="https://ibb.co/j9F5pNk1" target="_blank">
-                <img src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="VTT Tools Logo">
-            </a>
+        <!-- LOGO GÓC TRÁI (Bấm vào bật Popup NYC) -->
+        <div class="header-logo" onclick="openNycModal()" title="Bấm để xem thêm">
+            <img src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="VTT Tools Logo">
         </div>
 
         <!-- TÊN VTT TOOLS GRADIENT GIỮA HEADING -->
@@ -388,34 +424,44 @@
             <h1 class="brand-title">VTT Tools</h1>
         </div>
 
-        <!-- Spacer để cân bằng layout -->
-        <div style="width: 48px;"></div>
+        <!-- Spacer cân bằng -->
+        <div style="width: 60px;"></div>
     </header>
 
-    <!-- MAIN BODY DIVIDE 2 SECTIONS: iOS & ANDROID -->
+    <!-- MAIN BODY CONTAINER -->
     <main class="main-container">
 
-        <!-- PHẦN 1: iOS -->
-        <section class="platform-card">
-            <div class="card-header" style="color: var(--ios-color);">
-                <i class="fa-brands fa-apple"></i>
-                <h2 class="card-title">Hệ Điều Hành iOS</h2>
+        <!-- THIẾT KẾ PHẦN CHỌN HỆ ĐIỀU HÀNH BỐ CỤC MỚI -->
+        <div class="os-selector-card">
+            <div class="section-label">1. Chọn Hệ Điều Hành Của Bạn</div>
+            <div class="os-tabs">
+                <button class="tab-btn active-ios" id="btnTabIos" onclick="switchOs('ios')">
+                    <i class="fa-brands fa-apple" style="font-size: 1.2rem;"></i> iOS
+                </button>
+                <button class="tab-btn" id="btnTabAndroid" onclick="switchOs('android')">
+                    <i class="fa-brands fa-android" style="font-size: 1.2rem;"></i> Android
+                </button>
             </div>
+        </div>
 
-            <!-- Khung 1: Khung TO upload file .HAR -->
+        <!-- KHU VỰC CẤU HÌNH DÀNH CHO iOS -->
+        <div class="content-card" id="iosSection">
+            <div class="section-label">2. Tải File Phiên iOS</div>
+            <!-- Khung 1: Upload File .HAR -->
             <div class="upload-big-box" onclick="document.getElementById('harFileInput').click()">
-                <i class="fa-solid fa-file-code big-icon" id="harIcon"></i>
+                <i class="fa-solid fa-cloud-arrow-up big-icon" id="harIcon"></i>
                 <div class="box-title" id="harText">Tải Lên File .HAR</div>
                 <div class="box-sub">Bấm để chọn file .HAR thu thập phiên từ iOS</div>
                 <input type="file" id="harFileInput" accept=".har" onchange="handleHarUpload(event)" class="hidden">
             </div>
 
-            <!-- Khung 2: Khung NHỎ upload ảnh loading -->
+            <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
+            <!-- Khung 2: Upload Ảnh Loading -->
             <div class="upload-small-box" onclick="document.getElementById('iosImgInput').click()">
                 <div class="small-box-content" id="iosImgPlaceholder">
-                    <i class="fa-regular fa-image" style="font-size: 1.5rem; color: var(--text-sub); margin-bottom: 6px;"></i>
-                    <div style="font-size: 0.85rem; font-weight: 600;">Chọn Ảnh Loading Trong Game</div>
-                    <div style="font-size: 0.75rem; color: var(--text-sub);">Tỉ lệ 1080 x 1701</div>
+                    <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
+                    <div style="font-size: 0.95rem; font-weight: 700;">Click để chọn ảnh</div>
+                    <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">Tỉ lệ chuẩn 1080 x 1701</div>
                 </div>
                 <img id="iosImgPreview" class="preview-img" alt="iOS Preview">
                 <input type="file" id="iosImgInput" accept="image/*" onchange="handleImageSelect(event, 'ios')" class="hidden">
@@ -425,7 +471,7 @@
                 <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ (iOS)
             </button>
 
-            <!-- Mục xem tiến trình upload -->
+            <!-- Tiến trình -->
             <div class="status-tracker-box">
                 <div class="tracker-title">
                     <span><i class="fa-solid fa-spinner fa-spin"></i> Tiến Trình iOS</span>
@@ -433,26 +479,23 @@
                 </div>
                 <div class="tracker-content" id="iosStatusLog">Chưa có tiến trình nào đang chạy...</div>
             </div>
-        </section>
+        </div>
 
-        <!-- PHẦN 2: ANDROID -->
-        <section class="platform-card">
-            <div class="card-header" style="color: var(--android-color);">
-                <i class="fa-brands fa-android"></i>
-                <h2 class="card-title">Hệ Điều Hành Android</h2>
-            </div>
-
-            <!-- Khung 1: Khung dán Link Token (KGVN) -->
+        <!-- KHU VỰC CẤU HÌNH DÀNH CHO ANDROID (MẶC ĐỊNH ẨN) -->
+        <div class="content-card hidden" id="androidSection">
+            <div class="section-label">2. Nhập Token Android</div>
+            <!-- Khung 1: Dán Link Token (kgvn) -->
             <div>
                 <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token (kgvn) thu thập từ Android vào đây..."></textarea>
             </div>
 
-            <!-- Khung 2: Khung NHỎ upload ảnh loading -->
+            <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
+            <!-- Khung 2: Upload Ảnh Loading -->
             <div class="upload-small-box" onclick="document.getElementById('androidImgInput').click()">
                 <div class="small-box-content" id="androidImgPlaceholder">
-                    <i class="fa-regular fa-image" style="font-size: 1.5rem; color: var(--text-sub); margin-bottom: 6px;"></i>
-                    <div style="font-size: 0.85rem; font-weight: 600;">Chọn Ảnh Loading Trong Game</div>
-                    <div style="font-size: 0.75rem; color: var(--text-sub);">Tỉ lệ 1080 x 1701</div>
+                    <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
+                    <div style="font-size: 0.95rem; font-weight: 700;">Click để chọn ảnh</div>
+                    <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">Tỉ lệ chuẩn 1080 x 1701</div>
                 </div>
                 <img id="androidImgPreview" class="preview-img" alt="Android Preview">
                 <input type="file" id="androidImgInput" accept="image/*" onchange="handleImageSelect(event, 'android')" class="hidden">
@@ -462,7 +505,7 @@
                 <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ (ANDROID)
             </button>
 
-            <!-- Mục xem tiến trình upload -->
+            <!-- Tiến trình -->
             <div class="status-tracker-box">
                 <div class="tracker-title">
                     <span><i class="fa-solid fa-spinner fa-spin"></i> Tiến Trình Android</span>
@@ -470,7 +513,7 @@
                 </div>
                 <div class="tracker-content" id="androidStatusLog">Chưa có tiến trình nào đang chạy...</div>
             </div>
-        </section>
+        </div>
 
     </main>
 
@@ -493,11 +536,47 @@
     <script>
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
 
+        let currentOs = 'ios';
         let selectedHarFile = null;
         let iosBlobImage = null;
         let androidBlobImage = null;
         let currentTargetPlatform = null;
         let cropper = null;
+
+        // POPUP PHÓNG TO LOGO NYC
+        function openNycModal() {
+            Swal.fire({
+                title: 'Đây là NYC mình!😔',
+                imageUrl: 'https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg',
+                imageWidth: 280,
+                imageHeight: 280,
+                imageAlt: 'Logo NYC',
+                showCloseButton: true,
+                confirmButtonText: 'Đóng',
+                confirmButtonColor: '#38bdf8'
+            });
+        }
+
+        // CHUYỂN ĐỔI GIỮA iOS VÀ ANDROID
+        function switchOs(os) {
+            currentOs = os;
+            const btnIos = document.getElementById('btnTabIos');
+            const btnAndroid = document.getElementById('btnTabAndroid');
+            const secIos = document.getElementById('iosSection');
+            const secAndroid = document.getElementById('androidSection');
+
+            if (os === 'ios') {
+                btnIos.className = 'tab-btn active-ios';
+                btnAndroid.className = 'tab-btn';
+                secIos.classList.remove('hidden');
+                secAndroid.classList.add('hidden');
+            } else {
+                btnIos.className = 'tab-btn';
+                btnAndroid.className = 'tab-btn active-android';
+                secIos.classList.add('hidden');
+                secAndroid.classList.remove('hidden');
+            }
+        }
 
         // Xử lý upload File .HAR
         function handleHarUpload(event) {
