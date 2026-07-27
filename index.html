@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VTT Tools - Hệ Thống Thay Poster Liên Quân</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome 6 & CropperJS & SweetAlert2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -46,7 +44,6 @@
             padding: 20px 16px;
         }
 
-        /* HEADER & NAVBAR */
         .site-header {
             width: 100%;
             max-width: 650px;
@@ -75,7 +72,7 @@
         }
 
         .header-logo img {
-            height: 60px; /* Phóng to logo */
+            height: 60px;
             width: 60px;
             border-radius: 16px;
             object-fit: cover;
@@ -93,7 +90,7 @@
 
         .brand-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.4rem; /* Phóng to tên tiêu đề */
+            font-size: 2.4rem;
             font-weight: 800;
             background: var(--title-gradient);
             -webkit-background-clip: text;
@@ -102,7 +99,6 @@
             text-transform: uppercase;
         }
 
-        /* MAIN CONTAINER (ĐƠN CỘT) */
         .main-container {
             width: 100%;
             max-width: 650px;
@@ -111,7 +107,6 @@
             gap: 20px;
         }
 
-        /* TAB SELECTOR CHỌN HỆ ĐIỀU HÀNH */
         .os-selector-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -168,7 +163,6 @@
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
-        /* CARD BẢNG ĐIỀU KHIỂN CHÍNH */
         .content-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -180,7 +174,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* KHUNG TO UPLOAD FILE .HAR */
         .upload-big-box {
             background: #090a0e;
             border: 2px dashed rgba(255, 255, 255, 0.12);
@@ -214,7 +207,6 @@
             margin-top: 4px;
         }
 
-        /* KHUNG NHẬP LINK TOKEN (ANDROID) */
         .input-token-area {
             width: 100%;
             height: 120px;
@@ -234,7 +226,6 @@
             border-color: var(--android-color);
         }
 
-        /* KHUNG NHỎ UPLOAD ANH LOADING */
         .upload-small-box {
             background: #090a0e;
             border: 2px dashed rgba(255, 255, 255, 0.12);
@@ -268,7 +259,6 @@
             z-index: 2;
         }
 
-        /* MỤC XEM TIẾN TRÌNH */
         .status-tracker-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -295,7 +285,6 @@
             color: #38bdf8;
         }
 
-        /* NÚT THỰC THI (ACTION BUTTON) */
         .btn-action {
             width: 100%;
             padding: 16px;
@@ -334,7 +323,6 @@
             transform: translateY(-2px);
         }
 
-        /* Crop Modal */
         #cropModal {
             position: fixed;
             inset: 0;
@@ -387,7 +375,6 @@
 
         .hidden { display: none !important; }
 
-        /* SweetAlert Custom Style */
         .swal2-popup {
             background: #121318 !important;
             color: #fff !important;
@@ -412,26 +399,20 @@
 </head>
 <body>
 
-    <!-- HEADER & HEADING TRANG WEB -->
     <header class="site-header">
-        <!-- LOGO GÓC TRÁI (Bấm vào bật Popup NYC) -->
         <div class="header-logo" onclick="openNycModal()" title="Bấm để xem thêm">
             <img src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="VTT Tools Logo">
         </div>
 
-        <!-- TÊN VTT TOOLS GRADIENT GIỮA HEADING -->
         <div class="header-title-container">
             <h1 class="brand-title">VTT Tools</h1>
         </div>
 
-        <!-- Spacer cân bằng -->
         <div style="width: 60px;"></div>
     </header>
 
-    <!-- MAIN BODY CONTAINER -->
     <main class="main-container">
 
-        <!-- THIẾT KẾ PHẦN CHỌN HỆ ĐIỀU HÀNH BỐ CỤC MỚI -->
         <div class="os-selector-card">
             <div class="section-label">1. Chọn Hệ Điều Hành Của Bạn</div>
             <div class="os-tabs">
@@ -444,10 +425,8 @@
             </div>
         </div>
 
-        <!-- KHU VỰC CẤU HÌNH DÀNH CHO iOS -->
         <div class="content-card" id="iosSection">
             <div class="section-label">2. Tải File Phiên iOS</div>
-            <!-- Khung 1: Upload File .HAR -->
             <div class="upload-big-box" onclick="document.getElementById('harFileInput').click()">
                 <i class="fa-solid fa-cloud-arrow-up big-icon" id="harIcon"></i>
                 <div class="box-title" id="harText">Tải Lên File .HAR</div>
@@ -456,7 +435,6 @@
             </div>
 
             <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
-            <!-- Khung 2: Upload Ảnh Loading -->
             <div class="upload-small-box" onclick="document.getElementById('iosImgInput').click()">
                 <div class="small-box-content" id="iosImgPlaceholder">
                     <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
@@ -468,10 +446,9 @@
             </div>
 
             <button class="btn-action btn-ios" onclick="submitIosProcess()">
-                <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ (iOS)
+                <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ
             </button>
 
-            <!-- Tiến trình -->
             <div class="status-tracker-box">
                 <div class="tracker-title">
                     <span><i class="fa-solid fa-spinner fa-spin"></i> Tiến Trình iOS</span>
@@ -481,16 +458,13 @@
             </div>
         </div>
 
-        <!-- KHU VỰC CẤU HÌNH DÀNH CHO ANDROID (MẶC ĐỊNH ẨN) -->
         <div class="content-card hidden" id="androidSection">
             <div class="section-label">2. Nhập Token Android</div>
-            <!-- Khung 1: Dán Link Token (kgvn) -->
             <div>
                 <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token (kgvn) thu thập từ Android vào đây..."></textarea>
             </div>
 
             <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
-            <!-- Khung 2: Upload Ảnh Loading -->
             <div class="upload-small-box" onclick="document.getElementById('androidImgInput').click()">
                 <div class="small-box-content" id="androidImgPlaceholder">
                     <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
@@ -502,10 +476,9 @@
             </div>
 
             <button class="btn-action btn-android" onclick="submitAndroidProcess()">
-                <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ (ANDROID)
+                <i class="fa-solid fa-paper-plane"></i> GỬI XỬ LÝ
             </button>
 
-            <!-- Tiến trình -->
             <div class="status-tracker-box">
                 <div class="tracker-title">
                     <span><i class="fa-solid fa-spinner fa-spin"></i> Tiến Trình Android</span>
@@ -517,7 +490,6 @@
 
     </main>
 
-    <!-- CROPPER MODAL -->
     <div id="cropModal" class="hidden">
         <h3 style="margin-bottom: 15px; font-family: 'Space Grotesk', sans-serif; color: #fff;">
             Cắt Ảnh Loading (1080 x 1701)
@@ -531,7 +503,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS LOGIC -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
@@ -543,7 +514,16 @@
         let currentTargetPlatform = null;
         let cropper = null;
 
-        // POPUP PHÓNG TO LOGO NYC
+        window.addEventListener('DOMContentLoaded', () => {
+            Swal.fire({
+                title: 'Thông Báo Bản Quyền',
+                text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sỡ hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
+                icon: 'info',
+                confirmButtonText: 'Tôi Đã Hiểu',
+                confirmButtonColor: '#38bdf8'
+            });
+        });
+
         function openNycModal() {
             Swal.fire({
                 title: 'Đây là NYC mình!😔',
@@ -557,7 +537,6 @@
             });
         }
 
-        // CHUYỂN ĐỔI GIỮA iOS VÀ ANDROID
         function switchOs(os) {
             currentOs = os;
             const btnIos = document.getElementById('btnTabIos');
@@ -578,7 +557,6 @@
             }
         }
 
-        // Xử lý upload File .HAR
         function handleHarUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -589,7 +567,6 @@
             }
         }
 
-        // Xử lý chọn và cắt ảnh Loading
         function handleImageSelect(event, platform) {
             currentTargetPlatform = platform;
             const file = event.target.files[0];
@@ -632,7 +609,6 @@
             closeCropModal();
         }
 
-        // Tiến trình iOS
         async function submitIosProcess() {
             if (!selectedHarFile) { Swal.fire({ icon: 'warning', title: 'Thiếu File HAR!', text: 'Vui lòng chọn file .HAR trước.' }); return; }
             if (!iosBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho iOS.' }); return; }
@@ -668,7 +644,6 @@
             }
         }
 
-        // Tiến trình Android
         async function submitAndroidProcess() {
             const token = document.getElementById('androidTokenInput').value.trim();
             if (!token) { Swal.fire({ icon: 'warning', title: 'Thiếu Link Token!', text: 'Vui lòng dán link token kgvn vào khung trên.' }); return; }
@@ -705,7 +680,6 @@
             }
         }
 
-        // Hàm kiểm tra tiến trình upload
         function trackStatus(jobId, platform) {
             const log = document.getElementById(`${platform}StatusLog`);
             const badge = document.getElementById(`${platform}StatusBadge`);
@@ -732,7 +706,6 @@
                         }
                     }
                 } catch (e) {
-                    // Ignore transient network errors
                 }
             }, 4000);
         }
