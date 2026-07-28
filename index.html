@@ -32,10 +32,6 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
         textarea, input {
@@ -69,7 +65,7 @@
             box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
             cursor: pointer;
             z-index: 99999;
-            opacity: 0.65;
+            opacity: 0.85;
             transition: opacity 0.25s ease;
             will-change: transform;
         }
@@ -349,42 +345,6 @@
             text-align: center;
         }
 
-        .donate-info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            font-size: 0.9rem;
-        }
-
-        .donate-info-label {
-            color: var(--text-sub);
-            font-weight: 600;
-        }
-
-        .donate-info-val {
-            color: var(--donate-color);
-            font-family: monospace;
-            font-weight: 700;
-        }
-
-        .note-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            line-height: 1.6;
-        }
-
-        .note-card ul {
-            margin-left: 20px;
-            margin-top: 8px;
-        }
-
         #cropModal {
             position: fixed;
             inset: 0;
@@ -446,7 +406,7 @@
         .swal2-title { color: #fff !important; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <img id="dvdLogo" src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="DVD Logo" onclick="openNycModal()" title="Bấm để xem thêm">
 
@@ -538,7 +498,7 @@
 
         <div class="content-card hidden" id="donateSection">
             <div class="section-label" style="color: var(--donate-color);">Ủng Hộ Mình Sống Qua Ngày:</div>
-<a href="https://ibb.co/QvxxFqLs"><img src="https://i.ibb.co/B2YYV7b8/883-C0-B94-7469-438-F-9-A1-B-DE7-D904-A15-EB.jpg" alt="883-C0-B94-7469-438-F-9-A1-B-DE7-D904-A15-EB" border="0"></a>
+            <a href="https://ibb.co/QvxxFqLs" target="_blank"><img src="https://i.ibb.co/B2YYV7b8/883-C0-B94-7469-438-F-9-A1-B-DE7-D904-A15-EB.jpg" alt="Donate QR" style="max-width: 100%; border-radius: 12px;"></a>
         </div>
     </main>
 
@@ -557,32 +517,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
-        (function() {
-            window.addEventListener('keydown', function(e) {
-                if (
-                    e.keyCode === 123 ||
-                    (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
-                    (e.ctrlKey && e.keyCode === 85)
-                ) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-            }, true);
-
-            setInterval(function() {
-                console.log(
-                    "%cBỐ VÁC DÁI ĐỊT CẢ HỌ NHÀ MÀY NHẾ CON CHÓ ĐÒI CRACK WEB BỐ À",
-                    "color: red; font-size: 24px; font-weight: bold; background: black; padding: 10px; border: 2px solid red;"
-                );
-                const startTime = performance.now();
-                (function() {}["constructor"]("debugger")());
-                if (performance.now() - startTime > 100) {
-                    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-size:3rem;'>BỐ VÁC DÁI ĐỊT CẢ HỌ NHÀ MÀY NHẾ CON CHÓ ĐÒI CRACK WEB BỐ À</h1>";
-                }
-            }, 300);
-        })();
-
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
 
         let currentOs = 'ios';
@@ -592,17 +526,18 @@
         let currentTargetPlatform = null;
         let cropper = null;
 
+        // Xử lý hiệu ứng nảy DVD Logo
         const dvd = document.getElementById('dvdLogo');
-        let posX = Math.random() * (window.innerWidth - 60);
-        let posY = Math.random() * (window.innerHeight - 60);
+        let dvdWidth = 55;
+        let dvdHeight = 55;
+        let posX = Math.random() * (window.innerWidth - dvdWidth);
+        let posY = Math.random() * (window.innerHeight - dvdHeight);
         let speedX = 2.5;
         let speedY = 2.5;
 
         function animateDVD() {
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
-            const dvdWidth = dvd.offsetWidth;
-            const dvdHeight = dvd.offsetHeight;
 
             posX += speedX;
             posY += speedY;
@@ -628,15 +563,15 @@
         }
 
         window.addEventListener('resize', () => {
-            if (posX > window.innerWidth - 60) posX = window.innerWidth - 60;
-            if (posY > window.innerHeight - 60) posY = window.innerHeight - 60;
+            if (posX > window.innerWidth - dvdWidth) posX = window.innerWidth - dvdWidth;
+            if (posY > window.innerHeight - dvdHeight) posY = window.innerHeight - dvdHeight;
         });
 
         window.addEventListener('DOMContentLoaded', () => {
             animateDVD();
             Swal.fire({
                 title: 'Thông Báo Bản Quyền',
-                imageUrl: 'https://i.ibb.co/WLbbLjr/A1457178-A312-472-C-9-D12-3-E6-DE57-C29-B9.jpg'
+                imageUrl: 'https://i.ibb.co/WLbbLjr/A1457178-A312-472-C-9-D12-3-E6-DE57-C29-B9.jpg',
                 text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sở hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
                 icon: 'info',
                 confirmButtonText: 'Tôi Đã Hiểu',
