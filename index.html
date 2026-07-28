@@ -45,7 +45,6 @@
             overflow-x: hidden;
         }
 
-        /* ANIMATION DVD LOGO (Đã giảm opacity & bỏ đổi màu) */
         #dvdLogo {
             position: fixed;
             top: 0;
@@ -393,7 +392,6 @@
 </head>
 <body>
 
-    <!-- LOGO ĐĨA DVD NẢY QUANH MÀN HÌNH -->
     <img id="dvdLogo" src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="DVD Logo" onclick="openNycModal()" title="Bấm để xem thêm">
 
     <header class="site-header">
@@ -405,7 +403,7 @@
     <main class="main-container">
 
         <div class="os-selector-card">
-            <div class="section-label">1. Chọn Hệ Điều Hành Của Bạn</div>
+            <div class="section-label">Chọn Hệ Điều Hành Của Bạn</div>
             <div class="os-tabs">
                 <button class="tab-btn active-ios" id="btnTabIos" onclick="switchOs('ios')">
                     <i class="fa-brands fa-apple" style="font-size: 1.2rem;"></i> iOS
@@ -417,7 +415,7 @@
         </div>
 
         <div class="content-card" id="iosSection">
-            <div class="section-label">2. Tải File Phiên iOS</div>
+            <div class="section-label"> </div>
             <div class="upload-big-box" onclick="document.getElementById('harFileInput').click()">
                 <i class="fa-solid fa-cloud-arrow-up big-icon" id="harIcon"></i>
                 <div class="box-title" id="harText">Tải Lên File .HAR</div>
@@ -425,7 +423,7 @@
                 <input type="file" id="harFileInput" accept=".har" onchange="handleHarUpload(event)" class="hidden">
             </div>
 
-            <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
+            <div class="section-label" style="margin-top: 5px;">Chọn Ảnh Loading Game</div>
             <div class="upload-small-box" onclick="document.getElementById('iosImgInput').click()">
                 <div class="small-box-content" id="iosImgPlaceholder">
                     <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
@@ -450,12 +448,12 @@
         </div>
 
         <div class="content-card hidden" id="androidSection">
-            <div class="section-label">2. Nhập Token Android</div>
+            <div class="section-label">Nhập Link Token Android</div>
             <div>
-                <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token (kgvn) thu thập từ Android vào đây..."></textarea>
+                <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token Thu Thập Được Của Bạn Vào Đây"></textarea>
             </div>
 
-            <div class="section-label" style="margin-top: 5px;">3. Chọn Ảnh Loading Game</div>
+            <div class="section-label" style="margin-top: 5px;">Chọn Ảnh Loading Game</div>
             <div class="upload-small-box" onclick="document.getElementById('androidImgInput').click()">
                 <div class="small-box-content" id="androidImgPlaceholder">
                     <i class="fa-regular fa-image" style="font-size: 2rem; color: var(--text-sub); margin-bottom: 8px;"></i>
@@ -505,7 +503,6 @@
         let currentTargetPlatform = null;
         let cropper = null;
 
-        /* HOẠT HỌA LOGO CHẠY DVD (GIỮ NGUYÊN MÀU) */
         const dvd = document.getElementById('dvdLogo');
         let posX = Math.random() * (window.innerWidth - 60);
         let posY = Math.random() * (window.innerHeight - 60);
