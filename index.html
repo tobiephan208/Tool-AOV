@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@
             --text-sub: #94a3b8;
             --ios-color: #38bdf8;
             --android-color: #10b981;
+            --donate-color: #f59e0b;
         }
 
         * {
@@ -45,7 +46,7 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-black);
             color: var(--text-main);
             min-height: 100vh;
@@ -134,7 +135,7 @@
 
         .os-tabs {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             background: #090a0e;
             padding: 6px;
             border-radius: 16px;
@@ -146,16 +147,16 @@
             background: transparent;
             border: none;
             color: var(--text-sub);
-            padding: 12px;
+            padding: 12px 8px;
             border-radius: 12px;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -169,6 +170,12 @@
             background: var(--android-color);
             color: #000000;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .tab-btn.active-donate {
+            background: var(--donate-color);
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
         .content-card {
@@ -331,6 +338,53 @@
             transform: translateY(-2px);
         }
 
+        .donate-box {
+            background: #090a0e;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 18px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .donate-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .donate-info-label {
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .donate-info-val {
+            color: var(--donate-color);
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .note-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        .note-card ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
         #cropModal {
             position: fixed;
             inset: 0;
@@ -405,19 +459,22 @@
     <main class="main-container">
 
         <div class="os-selector-card">
-            <div class="section-label">Chọn Hệ Điều Hành Của Bạn</div>
+            <div class="section-label">Chọn Mục Thao Tác</div>
             <div class="os-tabs">
                 <button class="tab-btn active-ios" id="btnTabIos" onclick="switchOs('ios')">
-                    <i class="fa-brands fa-apple" style="font-size: 1.2rem;"></i> iOS
+                    <i class="fa-brands fa-apple" style="font-size: 1.1rem;"></i> iOS
                 </button>
                 <button class="tab-btn" id="btnTabAndroid" onclick="switchOs('android')">
-                    <i class="fa-brands fa-android" style="font-size: 1.2rem;"></i> Android
+                    <i class="fa-brands fa-android" style="font-size: 1.1rem;"></i> Android
+                </button>
+                <button class="tab-btn" id="btnTabDonate" onclick="switchOs('donate')">
+                    <i class="fa-solid fa-heart" style="font-size: 1.1rem; color: #f59e0b;"></i> Donate
                 </button>
             </div>
         </div>
 
         <div class="content-card" id="iosSection">
-            <div class="section-label"> </div>
+            <div class="section-label">Tải Lên Dữ Liệu iOS</div>
             <div class="upload-big-box" onclick="document.getElementById('harFileInput').click()">
                 <i class="fa-solid fa-cloud-arrow-up big-icon" id="harIcon"></i>
                 <div class="box-title" id="harText">Tải Lên File .HAR</div>
@@ -452,7 +509,7 @@
         <div class="content-card hidden" id="androidSection">
             <div class="section-label">Nhập Link Token Android</div>
             <div>
-                <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token Thu Thập Được Của Bạn Vào Đây"></textarea>
+                <textarea id="androidTokenInput" class="input-token-area" placeholder="Dán link Token Thu Thập Được Của Bạn Vào Đây (Xoá DO:)"></textarea>
             </div>
 
             <div class="section-label" style="margin-top: 5px;">Chọn Ảnh Loading Game</div>
@@ -479,6 +536,10 @@
             </div>
         </div>
 
+        <div class="content-card hidden" id="donateSection">
+            <div class="section-label" style="color: var(--donate-color);">Ủng Hộ Mình Sống Qua Ngày:</div>
+<a href="https://ibb.co/QvxxFqLs"><img src="https://i.ibb.co/B2YYV7b8/883-C0-B94-7469-438-F-9-A1-B-DE7-D904-A15-EB.jpg" alt="883-C0-B94-7469-438-F-9-A1-B-DE7-D904-A15-EB" border="0"></a>
+        </div>
     </main>
 
     <div id="cropModal" class="hidden">
@@ -575,6 +636,7 @@
             animateDVD();
             Swal.fire({
                 title: 'Thông Báo Bản Quyền',
+                imageUrl: 'https://i.ibb.co/WLbbLjr/A1457178-A312-472-C-9-D12-3-E6-DE57-C29-B9.jpg'
                 text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sở hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
                 icon: 'info',
                 confirmButtonText: 'Tôi Đã Hiểu',
@@ -599,19 +661,29 @@
             currentOs = os;
             const btnIos = document.getElementById('btnTabIos');
             const btnAndroid = document.getElementById('btnTabAndroid');
+            const btnDonate = document.getElementById('btnTabDonate');
+
             const secIos = document.getElementById('iosSection');
             const secAndroid = document.getElementById('androidSection');
+            const secDonate = document.getElementById('donateSection');
+
+            btnIos.className = 'tab-btn';
+            btnAndroid.className = 'tab-btn';
+            btnDonate.className = 'tab-btn';
+
+            secIos.classList.add('hidden');
+            secAndroid.classList.add('hidden');
+            secDonate.classList.add('hidden');
 
             if (os === 'ios') {
                 btnIos.className = 'tab-btn active-ios';
-                btnAndroid.className = 'tab-btn';
                 secIos.classList.remove('hidden');
-                secAndroid.classList.add('hidden');
-            } else {
-                btnIos.className = 'tab-btn';
+            } else if (os === 'android') {
                 btnAndroid.className = 'tab-btn active-android';
-                secIos.classList.add('hidden');
                 secAndroid.classList.remove('hidden');
+            } else if (os === 'donate') {
+                btnDonate.className = 'tab-btn active-donate';
+                secDonate.classList.remove('hidden');
             }
         }
 
