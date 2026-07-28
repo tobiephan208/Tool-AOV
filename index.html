@@ -31,6 +31,17 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        textarea, input {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
 
         body {
@@ -379,18 +390,9 @@
             border-radius: 24px !important;
         }
         .swal2-title { color: #fff !important; }
-
-        @media (max-width: 600px) {
-            .brand-title {
-                font-size: 1.8rem;
-            }
-            .site-header {
-                padding: 12px 16px;
-            }
-        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <img id="dvdLogo" src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="DVD Logo" onclick="openNycModal()" title="Bấm để xem thêm">
 
@@ -494,6 +496,32 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
+        (function() {
+            window.addEventListener('keydown', function(e) {
+                if (
+                    e.keyCode === 123 ||
+                    (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
+                    (e.ctrlKey && e.keyCode === 85)
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            }, true);
+
+            setInterval(function() {
+                console.log(
+                    "%cBỐ VÁC DÁI ĐỊT CẢ HỌ NHÀ MÀY NHẾ CON CHÓ ĐÒI CRACK WEB BỐ À",
+                    "color: red; font-size: 24px; font-weight: bold; background: black; padding: 10px; border: 2px solid red;"
+                );
+                const startTime = performance.now();
+                (function() {}["constructor"]("debugger")());
+                if (performance.now() - startTime > 100) {
+                    document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-size:3rem;'>BỐ VÁC DÁI ĐỊT CẢ HỌ NHÀ MÀY NHẾ CON CHÓ ĐÒI CRACK WEB BỐ À</h1>";
+                }
+            }, 300);
+        })();
+
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
 
         let currentOs = 'ios';
@@ -547,7 +575,7 @@
             animateDVD();
             Swal.fire({
                 title: 'Thông Báo Bản Quyền',
-                text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sỡ hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
+                text: 'Toàn bộ mã nguồn và tài liệu API đều được tham khảo và thuộc quyền sở hữu của Vương Thanh Tú. Vui lòng không crack dưới mọi hình thức!',
                 icon: 'info',
                 confirmButtonText: 'Tôi Đã Hiểu',
                 confirmButtonColor: '#38bdf8'
