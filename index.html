@@ -305,6 +305,7 @@
             font-family: monospace;
             line-height: 1.4;
             color: #38bdf8;
+            word-break: break-all;
         }
 
         .btn-action {
@@ -704,7 +705,6 @@
                 let payload = {};
 
                 if (type === 'ios') {
-                    
                     const harDownloadUrl = await uploadFileToCatbox(data.file);
 
                     payload = {
@@ -835,23 +835,29 @@
 
                     if (data.success) {
                         const job = data.data;
-                        if (job.status === 'success') {
+                        if (job.status === 'success' || job.status === 'completed') {
                             clearInterval(timer);
-                            badge.innerText = 'Thành công';
+                            badge.innerText = 'Hoàn thành';
                             badge.style.color = '#10b981';
-                            log.innerHTML = `🎉 <b>HOÀN THÀNH THÀNH CÔNG!</b><br>🆔 Poster ID: ${job.poster_id || 'N/A'}`;
-                        } else if (job.status === 'error') {
+                            log.innerHTML = `🎉 **Thành công!**<br>${job.message || 'Thay ảnh loading thành công.'}`;
+                            Swal.fire({ icon: 'success', title: 'Thành Công!', text: 'Thao tác thay ảnh hoàn tất.' });
+                        } else if (job.status === 'failed' || job.status === 'error') {
                             clearInterval(timer);
                             badge.innerText = 'Thất bại';
                             badge.style.color = '#ef4444';
-                            log.innerHTML = `❌ Lỗi: ${job.message}`;
+                            log.innerHTML = `❌ **Lỗi:** ${job.error || 'Quá trình xử lý bị lỗi'}`;
+                            Swal.fire({ icon: 'error', title: 'Thất Bại', text: job.error || 'Xử lý thất bại' });
                         } else {
-                            log.innerHTML = `⏳ Mã: <b>${jobId}</b><br>Trạng thái: ${job.message}...`;
+                            log.innerHTML = `✅ Mã yêu cầu: <b>${jobId}</b><br>⏳ Trạng thái: ${job.status_text || job.status}...`;
                         }
                     }
-                } catch (e) {
+                } catch (err) {
+                    clearInterval(timer);
+                    badge.innerText = 'Lỗi kiểm tra';
+                    badge.style.color = '#ef4444';
+                    log.innerHTML = '❌ Không thể kiểm tra tiến trình từ máy chủ!';
                 }
-            }, 4000);
+            }, 3000);
         }
     </script>
 </body>
